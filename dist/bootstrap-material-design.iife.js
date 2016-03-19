@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap Material Design v4.0.0 (https://github.com/FezVrasta/bootstrap-material-design)
+  * Bootstrap Material Design v4.0.1 (https://github.com/FezVrasta/bootstrap-material-design)
   * Copyright 2014-2016 Federico Zivolo
   * Licensed under MIT (https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE)
   */
