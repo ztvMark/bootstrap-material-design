@@ -113,7 +113,7 @@ const Util = (() => {
 const Base = (($) => {
 
   const ClassName = {
-    MDB_FORM_GROUP: 'mdb-form-group',
+    MDB_FORM_GROUP: 'bmd-form-group',
     IS_FILLED: 'is-filled',
     IS_FOCUSED: 'is-focused'
   }
@@ -174,7 +174,7 @@ const Base = (($) => {
       this.$mdbFormGroup.addClass(ClassName.IS_FILLED)
     }
 
-    // Find mdb-form-group
+    // Find bmd-form-group
     findMdbFormGroup(raiseError = true) {
       let mfg = this.$element.closest(Selector.MDB_FORM_GROUP)
       if (mfg.length === 0 && raiseError) {
@@ -199,11 +199,11 @@ const BaseInput = (($) => {
 
   const ClassName = {
     FORM_GROUP: 'form-group',
-    MDB_FORM_GROUP: 'mdb-form-group',
-    MDB_LABEL: 'mdb-label',
-    MDB_LABEL_STATIC: 'mdb-label-static',
-    MDB_LABEL_PLACEHOLDER: 'mdb-label-placeholder',
-    MDB_LABEL_FLOATING: 'mdb-label-floating',
+    MDB_FORM_GROUP: 'bmd-form-group',
+    MDB_LABEL: 'bmd-label',
+    MDB_LABEL_STATIC: 'bmd-label-static',
+    MDB_LABEL_PLACEHOLDER: 'bmd-label-placeholder',
+    MDB_LABEL_FLOATING: 'bmd-label-floating',
     HAS_DANGER: 'has-danger',
     IS_FILLED: 'is-filled',
     IS_FOCUSED: 'is-focused'
@@ -228,7 +228,7 @@ const BaseInput = (($) => {
     label: {
       required: false,
 
-      // Prioritized find order for resolving the label to be used as an mdb-label if not specified in the markup
+      // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
       //  - a function(thisComponent); or
       //  - a string selector used like $mdbFormGroup.find(selector)
       //
@@ -246,8 +246,8 @@ const BaseInput = (($) => {
   }
 
   const FormControlSizeMarkers = {
-    'form-control-lg': 'mdb-form-group-lg',
-    'form-control-sm': 'mdb-form-group-sm'
+    'form-control-lg': 'bmd-form-group-lg',
+    'form-control-sm': 'bmd-form-group-sm'
   }
 
   /**
@@ -275,19 +275,19 @@ const BaseInput = (($) => {
       // Enforce required classes for a consistent rendering
       this._rejectWithoutRequiredClasses()
 
-      // Resolve the form-group first, it will be used for mdb-form-group if possible
+      // Resolve the form-group first, it will be used for bmd-form-group if possible
       //   note: different components have different rules
       this.$formGroup = this.findFormGroup(this.config.formGroup.required)
 
-      // Will add mdb-form-group to form-group or create an mdb-form-group
-      //  Performance Note: for those forms that are really performance driven, create the markup with the .mdb-form-group to avoid
+      // Will add bmd-form-group to form-group or create an bmd-form-group
+      //  Performance Note: for those forms that are really performance driven, create the markup with the .bmd-form-group to avoid
       //    rendering changes once added.
       this.$mdbFormGroup = this.resolveMdbFormGroup()
 
       // Resolve and mark the mdbLabel if necessary as defined by the config
       this.$mdbLabel = this.resolveMdbLabel()
 
-      // Signal to the mdb-form-group that a form-control-* variation is being used
+      // Signal to the bmd-form-group that a form-control-* variation is being used
       this.resolveMdbFormGroupSizing()
 
       this.addFocusListener()
@@ -363,7 +363,7 @@ const BaseInput = (($) => {
       return (this.$element.val() === null || this.$element.val() === undefined || this.$element.val() === '')
     }
 
-    // Will add mdb-form-group to form-group or create a mdb-form-group if necessary
+    // Will add bmd-form-group to form-group or create a bmd-form-group if necessary
     resolveMdbFormGroup() {
       let mfg = this.findMdbFormGroup(false)
       if (mfg === undefined || mfg.length === 0) {
@@ -376,7 +376,7 @@ const BaseInput = (($) => {
           this.$formGroup.addClass(ClassName.MDB_FORM_GROUP)
 
           // OLD: may want to implement this after all, see how the styling turns out, but using an existing form-group is less manipulation of the dom and therefore preferable
-          // A form-group does exist, so add an mdb-form-group wrapping it's internal contents
+          // A form-group does exist, so add an bmd-form-group wrapping it's internal contents
           //fg.wrapInner(this.config.mdbFormGroup.template)
         }
 
@@ -392,7 +392,7 @@ const BaseInput = (($) => {
       return this.$element
     }
 
-    // Will add mdb-label to mdb-form-group if not already specified
+    // Will add bmd-label to bmd-form-group if not already specified
     resolveMdbLabel() {
 
       let label = this.$mdbFormGroup.find(Selector.MDB_LABEL_WILDCARD)
@@ -411,7 +411,7 @@ const BaseInput = (($) => {
       return label
     }
 
-    // Find mdb-label variant based on the config selectors
+    // Find bmd-label variant based on the config selectors
     findMdbLabel(raiseError = true) {
       let label = null
 
@@ -434,7 +434,7 @@ const BaseInput = (($) => {
       return label
     }
 
-    // Find mdb-form-group
+    // Find bmd-form-group
     findFormGroup(raiseError = true) {
       let fg = this.$element.closest(Selector.FORM_GROUP)
       if (fg.length === 0 && raiseError) {
@@ -443,7 +443,7 @@ const BaseInput = (($) => {
       return fg
     }
 
-    // Due to the interconnected nature of labels/inputs/help-blocks, signal the mdb-form-group-* size variation based on
+    // Due to the interconnected nature of labels/inputs/help-blocks, signal the bmd-form-group-* size variation based on
     //  a found form-control-* size
     resolveMdbFormGroupSizing() {
       if (!this.config.convertInputSizeVariations) {
@@ -511,7 +511,7 @@ const BaseSelection = (($) => {
     label: {
       required: false
 
-      // Prioritized find order for resolving the label to be used as an mdb-label if not specified in the markup
+      // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
       //  - a function(thisComponent); or
       //  - a string selector used like $mdbFormGroup.find(selector)
       //
@@ -688,7 +688,7 @@ const CheckboxInline = (($) => {
 
   const Default = {
     mdbFormGroup: {
-      create: false, // no mdb-form-group creation if form-group not present. It messes with the layout.
+      create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
       required: false
     }
   }
@@ -793,7 +793,7 @@ const CollapseInline = (($) => {
   class CollapseInline extends Base {
 
     // $element is expected to be the trigger
-    //  i.e. <button class="btn mdb-btn-icon" for="search" data-toggle="collapse" data-target="#search-field" aria-expanded="false" aria-controls="search-field">
+    //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="collapse" data-target="#search-field" aria-expanded="false" aria-controls="search-field">
     constructor($element, config) {
       super($element, $.extend(true, {}, Default, config))
       this.$mdbFormGroup = this.findMdbFormGroup(true)
@@ -1011,7 +1011,7 @@ const Radio = (($) => {
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
-    template: `<span class='mdb-radio-outer-circle'></span><span class='mdb-radio-inner-circle'></span>`
+    template: `<span class='bmd-radio-outer-circle'></span><span class='bmd-radio-inner-circle'></span>`
   }
 
   /**
@@ -1099,7 +1099,7 @@ const RadioInline = (($) => {
 
   const Default = {
     mdbFormGroup: {
-      create: false, // no mdb-form-group creation if form-group not present. It messes with the layout.
+      create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
       required: false
     }
   }
@@ -1289,7 +1289,7 @@ const Switch = (($) => {
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
-    template: `<span class='mdb-switch-track'></span>`
+    template: `<span class='bmd-switch-track'></span>`
   }
 
   /**
@@ -1506,9 +1506,9 @@ const Textarea = (($) => {
 const BaseLayout = (($) => {
 
   const ClassName = {
-    CANVAS: 'mdb-layout-canvas',
-    CONTAINER: 'mdb-layout-container',
-    BACKDROP: `mdb-layout-backdrop`
+    CANVAS: 'bmd-layout-canvas',
+    CONTAINER: 'bmd-layout-container',
+    BACKDROP: `bmd-layout-backdrop`
   }
 
   const Selector = {
@@ -1554,7 +1554,7 @@ const BaseLayout = (($) => {
     // ------------------------------------------------------------------------
     // protected
 
-    // Will wrap container in mdb-layout-canvas if necessary
+    // Will wrap container in bmd-layout-canvas if necessary
     resolveCanvas() {
       let bd = this.findCanvas(false)
       if (bd === undefined || bd.length === 0) {
@@ -1568,7 +1568,7 @@ const BaseLayout = (($) => {
       return bd
     }
 
-    // Find closest mdb-layout-container based on the given context
+    // Find closest bmd-layout-container based on the given context
     findCanvas(raiseError = true, context = this.$container) {
       let canvas = context.closest(Selector.CANVAS)
       if (canvas.length === 0 && raiseError) {
@@ -1577,7 +1577,7 @@ const BaseLayout = (($) => {
       return canvas
     }
 
-    // Will add mdb-layout-backdrop to mdb-layout-container if necessary
+    // Will add bmd-layout-backdrop to bmd-layout-container if necessary
     resolveBackdrop() {
       let bd = this.findBackdrop(false)
       if (bd === undefined || bd.length === 0) {
@@ -1591,7 +1591,7 @@ const BaseLayout = (($) => {
       return bd
     }
 
-    // Find closest mdb-layout-container based on the given context
+    // Find closest bmd-layout-container based on the given context
     findBackdrop(raiseError = true, context = this.$container) {
       let backdrop = context.find(`> ${Selector.BACKDROP}`)
       if (backdrop.length === 0 && raiseError) {
@@ -1600,7 +1600,7 @@ const BaseLayout = (($) => {
       return backdrop
     }
 
-    // Find closest mdb-layout-container based on the given context
+    // Find closest bmd-layout-container based on the given context
     findContainer(raiseError = true, context = this.$element) {
       let container = context.closest(Selector.CONTAINER)
       if (container.length === 0 && raiseError) {
@@ -1641,10 +1641,10 @@ const Drawer = (($) => {
 
   const ClassName = {
     IN: 'in',
-    DRAWER_IN: `mdb-drawer-in`,
-    DRAWER_OUT: `mdb-drawer-out`,
-    DRAWER: 'mdb-layout-drawer',
-    CONTAINER: 'mdb-layout-container'
+    DRAWER_IN: `bmd-drawer-in`,
+    DRAWER_OUT: `bmd-drawer-out`,
+    DRAWER: 'bmd-layout-drawer',
+    CONTAINER: 'bmd-layout-container'
   }
 
   const Default = {
@@ -1659,7 +1659,7 @@ const Drawer = (($) => {
   class Drawer extends BaseLayout {
 
     // $element is expected to be the trigger
-    //  i.e. <button class="btn mdb-btn-icon" for="search" data-toggle="drawer" data-target="#my-side-nav-drawer" aria-expanded="false" aria-controls="my-side-nav-drawer">
+    //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="drawer" data-target="#my-side-nav-drawer" aria-expanded="false" aria-controls="my-side-nav-drawer">
     constructor($element, config) {
       super($element, $.extend(true, {}, Default, config))
 
@@ -1718,7 +1718,7 @@ const Drawer = (($) => {
       }
 
       this.$container.addClass(ClassName.DRAWER_IN)
-      // backdrop is responsively styled based on mdb-drawer-overlay, therefore style is none of our concern, simply add the marker class and let the scss determine if it should be displayed or not.
+      // backdrop is responsively styled based on bmd-drawer-overlay, therefore style is none of our concern, simply add the marker class and let the scss determine if it should be displayed or not.
       this.$backdrop.addClass(ClassName.IN)
     }
 
@@ -2236,7 +2236,7 @@ const BootstrapMaterialDesign = (($) => {
     global: {
       validate: false,
       label: {
-        className: 'mdb-label-static' // default style of label to be used if not specified in the html markup
+        className: 'bmd-label-static' // default style of label to be used if not specified in the html markup
       }
     },
     autofill: {
@@ -2249,10 +2249,10 @@ const BootstrapMaterialDesign = (($) => {
       selector: 'label.checkbox-inline > input[type=checkbox]'
     },
     collapseInline: {
-      selector: '.mdb-collapse-inline [data-toggle="collapse"]'
+      selector: '.bmd-collapse-inline [data-toggle="collapse"]'
     },
     drawer: {
-      selector: '.mdb-layout-drawer'
+      selector: '.bmd-layout-drawer'
     },
     file: {
       selector: 'input[type=file]'

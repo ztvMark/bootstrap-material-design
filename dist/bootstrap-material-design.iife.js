@@ -4819,7 +4819,7 @@
   var Base = function ($) {
 
     var ClassName = {
-      MDB_FORM_GROUP: 'mdb-form-group',
+      MDB_FORM_GROUP: 'bmd-form-group',
       IS_FILLED: 'is-filled',
       IS_FOCUSED: 'is-focused'
     };
@@ -4892,7 +4892,7 @@
           this.$mdbFormGroup.addClass(ClassName.IS_FILLED);
         }
 
-        // Find mdb-form-group
+        // Find bmd-form-group
 
       }, {
         key: 'findMdbFormGroup',
@@ -4923,11 +4923,11 @@
 
     var ClassName = {
       FORM_GROUP: 'form-group',
-      MDB_FORM_GROUP: 'mdb-form-group',
-      MDB_LABEL: 'mdb-label',
-      MDB_LABEL_STATIC: 'mdb-label-static',
-      MDB_LABEL_PLACEHOLDER: 'mdb-label-placeholder',
-      MDB_LABEL_FLOATING: 'mdb-label-floating',
+      MDB_FORM_GROUP: 'bmd-form-group',
+      MDB_LABEL: 'bmd-label',
+      MDB_LABEL_STATIC: 'bmd-label-static',
+      MDB_LABEL_PLACEHOLDER: 'bmd-label-placeholder',
+      MDB_LABEL_FLOATING: 'bmd-label-floating',
       HAS_DANGER: 'has-danger',
       IS_FILLED: 'is-filled',
       IS_FOCUSED: 'is-focused'
@@ -4952,7 +4952,7 @@
       label: {
         required: false,
 
-        // Prioritized find order for resolving the label to be used as an mdb-label if not specified in the markup
+        // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
         //  - a function(thisComponent); or
         //  - a string selector used like $mdbFormGroup.find(selector)
         //
@@ -4969,8 +4969,8 @@
     };
 
     var FormControlSizeMarkers = {
-      'form-control-lg': 'mdb-form-group-lg',
-      'form-control-sm': 'mdb-form-group-sm'
+      'form-control-lg': 'bmd-form-group-lg',
+      'form-control-sm': 'bmd-form-group-sm'
     };
 
     /**
@@ -5007,19 +5007,19 @@
         // Enforce required classes for a consistent rendering
         _this._rejectWithoutRequiredClasses();
 
-        // Resolve the form-group first, it will be used for mdb-form-group if possible
+        // Resolve the form-group first, it will be used for bmd-form-group if possible
         //   note: different components have different rules
         _this.$formGroup = _this.findFormGroup(_this.config.formGroup.required);
 
-        // Will add mdb-form-group to form-group or create an mdb-form-group
-        //  Performance Note: for those forms that are really performance driven, create the markup with the .mdb-form-group to avoid
+        // Will add bmd-form-group to form-group or create an bmd-form-group
+        //  Performance Note: for those forms that are really performance driven, create the markup with the .bmd-form-group to avoid
         //    rendering changes once added.
         _this.$mdbFormGroup = _this.resolveMdbFormGroup();
 
         // Resolve and mark the mdbLabel if necessary as defined by the config
         _this.$mdbLabel = _this.resolveMdbLabel();
 
-        // Signal to the mdb-form-group that a form-control-* variation is being used
+        // Signal to the bmd-form-group that a form-control-* variation is being used
         _this.resolveMdbFormGroupSizing();
 
         _this.addFocusListener();
@@ -5105,7 +5105,7 @@
           return this.$element.val() === null || this.$element.val() === undefined || this.$element.val() === '';
         }
 
-        // Will add mdb-form-group to form-group or create a mdb-form-group if necessary
+        // Will add bmd-form-group to form-group or create a bmd-form-group if necessary
 
       }, {
         key: 'resolveMdbFormGroup',
@@ -5121,7 +5121,7 @@
               this.$formGroup.addClass(ClassName.MDB_FORM_GROUP);
 
               // OLD: may want to implement this after all, see how the styling turns out, but using an existing form-group is less manipulation of the dom and therefore preferable
-              // A form-group does exist, so add an mdb-form-group wrapping it's internal contents
+              // A form-group does exist, so add an bmd-form-group wrapping it's internal contents
               //fg.wrapInner(this.config.mdbFormGroup.template)
             }
 
@@ -5140,7 +5140,7 @@
           return this.$element;
         }
 
-        // Will add mdb-label to mdb-form-group if not already specified
+        // Will add bmd-label to bmd-form-group if not already specified
 
       }, {
         key: 'resolveMdbLabel',
@@ -5162,7 +5162,7 @@
           return label;
         }
 
-        // Find mdb-label variant based on the config selectors
+        // Find bmd-label variant based on the config selectors
 
       }, {
         key: 'findMdbLabel',
@@ -5211,7 +5211,7 @@
           return label;
         }
 
-        // Find mdb-form-group
+        // Find bmd-form-group
 
       }, {
         key: 'findFormGroup',
@@ -5225,7 +5225,7 @@
           return fg;
         }
 
-        // Due to the interconnected nature of labels/inputs/help-blocks, signal the mdb-form-group-* size variation based on
+        // Due to the interconnected nature of labels/inputs/help-blocks, signal the bmd-form-group-* size variation based on
         //  a found form-control-* size
 
       }, {
@@ -5364,7 +5364,7 @@
       label: {
         required: false
 
-        // Prioritized find order for resolving the label to be used as an mdb-label if not specified in the markup
+        // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
         //  - a function(thisComponent); or
         //  - a string selector used like $mdbFormGroup.find(selector)
         //
@@ -5576,7 +5576,7 @@
 
     var Default = {
       mdbFormGroup: {
-        create: false, // no mdb-form-group creation if form-group not present. It messes with the layout.
+        create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
         required: false
       }
     };
@@ -5696,7 +5696,7 @@
 
 
       // $element is expected to be the trigger
-      //  i.e. <button class="btn mdb-btn-icon" for="search" data-toggle="collapse" data-target="#search-field" aria-expanded="false" aria-controls="search-field">
+      //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="collapse" data-target="#search-field" aria-expanded="false" aria-controls="search-field">
 
       function CollapseInline($element, config) {
         babelHelpers.classCallCheck(this, CollapseInline);
@@ -5950,7 +5950,7 @@
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
-      template: '<span class=\'mdb-radio-outer-circle\'></span><span class=\'mdb-radio-inner-circle\'></span>'
+      template: '<span class=\'bmd-radio-outer-circle\'></span><span class=\'bmd-radio-inner-circle\'></span>'
     };
 
     /**
@@ -6053,7 +6053,7 @@
 
     var Default = {
       mdbFormGroup: {
-        create: false, // no mdb-form-group creation if form-group not present. It messes with the layout.
+        create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
         required: false
       }
     };
@@ -6279,7 +6279,7 @@
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
-      template: '<span class=\'mdb-switch-track\'></span>'
+      template: '<span class=\'bmd-switch-track\'></span>'
     };
 
     /**
@@ -6536,9 +6536,9 @@
   var BaseLayout = function ($) {
 
     var ClassName = {
-      CANVAS: 'mdb-layout-canvas',
-      CONTAINER: 'mdb-layout-container',
-      BACKDROP: 'mdb-layout-backdrop'
+      CANVAS: 'bmd-layout-canvas',
+      CONTAINER: 'bmd-layout-container',
+      BACKDROP: 'bmd-layout-backdrop'
     };
 
     var Selector = {
@@ -6592,7 +6592,7 @@
         // ------------------------------------------------------------------------
         // protected
 
-        // Will wrap container in mdb-layout-canvas if necessary
+        // Will wrap container in bmd-layout-canvas if necessary
 
       }, {
         key: 'resolveCanvas',
@@ -6609,7 +6609,7 @@
           return bd;
         }
 
-        // Find closest mdb-layout-container based on the given context
+        // Find closest bmd-layout-container based on the given context
 
       }, {
         key: 'findCanvas',
@@ -6624,7 +6624,7 @@
           return canvas;
         }
 
-        // Will add mdb-layout-backdrop to mdb-layout-container if necessary
+        // Will add bmd-layout-backdrop to bmd-layout-container if necessary
 
       }, {
         key: 'resolveBackdrop',
@@ -6641,7 +6641,7 @@
           return bd;
         }
 
-        // Find closest mdb-layout-container based on the given context
+        // Find closest bmd-layout-container based on the given context
 
       }, {
         key: 'findBackdrop',
@@ -6656,7 +6656,7 @@
           return backdrop;
         }
 
-        // Find closest mdb-layout-container based on the given context
+        // Find closest bmd-layout-container based on the given context
 
       }, {
         key: 'findContainer',
@@ -6704,10 +6704,10 @@
 
     var ClassName = {
       IN: 'in',
-      DRAWER_IN: 'mdb-drawer-in',
-      DRAWER_OUT: 'mdb-drawer-out',
-      DRAWER: 'mdb-layout-drawer',
-      CONTAINER: 'mdb-layout-container'
+      DRAWER_IN: 'bmd-drawer-in',
+      DRAWER_OUT: 'bmd-drawer-out',
+      DRAWER: 'bmd-layout-drawer',
+      CONTAINER: 'bmd-layout-container'
     };
 
     var Default = {
@@ -6725,7 +6725,7 @@
 
 
       // $element is expected to be the trigger
-      //  i.e. <button class="btn mdb-btn-icon" for="search" data-toggle="drawer" data-target="#my-side-nav-drawer" aria-expanded="false" aria-controls="my-side-nav-drawer">
+      //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="drawer" data-target="#my-side-nav-drawer" aria-expanded="false" aria-controls="my-side-nav-drawer">
 
       function Drawer($element, config) {
         babelHelpers.classCallCheck(this, Drawer);
@@ -6792,7 +6792,7 @@
           }
 
           this.$container.addClass(ClassName.DRAWER_IN);
-          // backdrop is responsively styled based on mdb-drawer-overlay, therefore style is none of our concern, simply add the marker class and let the scss determine if it should be displayed or not.
+          // backdrop is responsively styled based on bmd-drawer-overlay, therefore style is none of our concern, simply add the marker class and let the scss determine if it should be displayed or not.
           this.$backdrop.addClass(ClassName.IN);
         }
       }, {
@@ -7380,7 +7380,7 @@
       global: {
         validate: false,
         label: {
-          className: 'mdb-label-static' // default style of label to be used if not specified in the html markup
+          className: 'bmd-label-static' // default style of label to be used if not specified in the html markup
         }
       },
       autofill: {
@@ -7393,10 +7393,10 @@
         selector: 'label.checkbox-inline > input[type=checkbox]'
       },
       collapseInline: {
-        selector: '.mdb-collapse-inline [data-toggle="collapse"]'
+        selector: '.bmd-collapse-inline [data-toggle="collapse"]'
       },
       drawer: {
-        selector: '.mdb-layout-drawer'
+        selector: '.bmd-layout-drawer'
       },
       file: {
         selector: 'input[type=file]'
