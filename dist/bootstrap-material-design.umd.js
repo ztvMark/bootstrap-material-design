@@ -109,7 +109,7 @@
         return false;
       }
 
-      var el = document.createElement('mdb');
+      var el = document.createElement('bmd');
 
       for (var name in TransitionEndEvent) {
         if (el.style[name] !== undefined) {
