@@ -4873,23 +4873,23 @@
         key: 'addFormGroupFocus',
         value: function addFormGroupFocus() {
           if (!this.$element.prop('disabled')) {
-            this.$mdbFormGroup.addClass(ClassName.IS_FOCUSED);
+            this.$bmdFormGroup.addClass(ClassName.IS_FOCUSED);
           }
         }
       }, {
         key: 'removeFormGroupFocus',
         value: function removeFormGroupFocus() {
-          this.$mdbFormGroup.removeClass(ClassName.IS_FOCUSED);
+          this.$bmdFormGroup.removeClass(ClassName.IS_FOCUSED);
         }
       }, {
         key: 'removeIsFilled',
         value: function removeIsFilled() {
-          this.$mdbFormGroup.removeClass(ClassName.IS_FILLED);
+          this.$bmdFormGroup.removeClass(ClassName.IS_FILLED);
         }
       }, {
         key: 'addIsFilled',
         value: function addIsFilled() {
-          this.$mdbFormGroup.addClass(ClassName.IS_FILLED);
+          this.$bmdFormGroup.addClass(ClassName.IS_FILLED);
         }
 
         // Find bmd-form-group
@@ -4944,7 +4944,7 @@
       formGroup: {
         required: false
       },
-      mdbFormGroup: {
+      bmdFormGroup: {
         template: '<span class=\'' + ClassName.BMD_FORM_GROUP + '\'></span>',
         create: true, // create a wrapper if form-group not found
         required: true // not recommended to turn this off, only used for inline components
@@ -4954,9 +4954,9 @@
 
         // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
         //  - a function(thisComponent); or
-        //  - a string selector used like $mdbFormGroup.find(selector)
+        //  - a string selector used like $bmdFormGroup.find(selector)
         //
-        // Note this only runs if $mdbFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
+        // Note this only runs if $bmdFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
         //
         selectors: ['.form-control-label', // in the case of horizontal or inline forms, this will be marked
         '> label' // usual case for text inputs, first child.  Deeper would find toggle labels so don't do that.
@@ -5014,10 +5014,10 @@
         // Will add bmd-form-group to form-group or create an bmd-form-group
         //  Performance Note: for those forms that are really performance driven, create the markup with the .bmd-form-group to avoid
         //    rendering changes once added.
-        _this.$mdbFormGroup = _this.resolveMdbFormGroup();
+        _this.$bmdFormGroup = _this.resolveMdbFormGroup();
 
-        // Resolve and mark the mdbLabel if necessary as defined by the config
-        _this.$mdbLabel = _this.resolveMdbLabel();
+        // Resolve and mark the bmdLabel if necessary as defined by the config
+        _this.$bmdLabel = _this.resolveMdbLabel();
 
         // Signal to the bmd-form-group that a form-control-* variation is being used
         _this.resolveMdbFormGroupSizing();
@@ -5031,7 +5031,7 @@
         key: 'dispose',
         value: function dispose(dataKey) {
           babelHelpers.get(Object.getPrototypeOf(BaseInput.prototype), 'dispose', this).call(this, dataKey);
-          this.$mdbFormGroup = null;
+          this.$bmdFormGroup = null;
           this.$formGroup = null;
         }
 
@@ -5092,12 +5092,12 @@
       }, {
         key: 'addHasDanger',
         value: function addHasDanger() {
-          this.$mdbFormGroup.addClass(ClassName.HAS_DANGER);
+          this.$bmdFormGroup.addClass(ClassName.HAS_DANGER);
         }
       }, {
         key: 'removeHasDanger',
         value: function removeHasDanger() {
-          this.$mdbFormGroup.removeClass(ClassName.HAS_DANGER);
+          this.$bmdFormGroup.removeClass(ClassName.HAS_DANGER);
         }
       }, {
         key: 'isEmpty',
@@ -5112,20 +5112,20 @@
         value: function resolveMdbFormGroup() {
           var mfg = this.findMdbFormGroup(false);
           if (mfg === undefined || mfg.length === 0) {
-            if (this.config.mdbFormGroup.create && (this.$formGroup === undefined || this.$formGroup.length === 0)) {
+            if (this.config.bmdFormGroup.create && (this.$formGroup === undefined || this.$formGroup.length === 0)) {
               // If a form-group doesn't exist (not recommended), take a guess and wrap the element (assuming no label).
               //  note: it's possible to make this smarter, but I need to see valid cases before adding any complexity.
-              this.outerElement().wrap(this.config.mdbFormGroup.template);
+              this.outerElement().wrap(this.config.bmdFormGroup.template);
             } else {
               // a form-group does exist, add our marker class to it
               this.$formGroup.addClass(ClassName.BMD_FORM_GROUP);
 
               // OLD: may want to implement this after all, see how the styling turns out, but using an existing form-group is less manipulation of the dom and therefore preferable
               // A form-group does exist, so add an bmd-form-group wrapping it's internal contents
-              //fg.wrapInner(this.config.mdbFormGroup.template)
+              //fg.wrapInner(this.config.bmdFormGroup.template)
             }
 
-            mfg = this.findMdbFormGroup(this.config.mdbFormGroup.required);
+            mfg = this.findMdbFormGroup(this.config.bmdFormGroup.required);
           }
 
           return mfg;
@@ -5146,7 +5146,7 @@
         key: 'resolveMdbLabel',
         value: function resolveMdbLabel() {
 
-          var label = this.$mdbFormGroup.find(Selector.BMD_LABEL_WILDCARD);
+          var label = this.$bmdFormGroup.find(Selector.BMD_LABEL_WILDCARD);
           if (label === undefined || label.length === 0) {
             // we need to find it based on the configured selectors
             label = this.findMdbLabel(this.config.label.required);
@@ -5183,7 +5183,7 @@
               if ($.isFunction(selector)) {
                 label = selector(this);
               } else {
-                label = this.$mdbFormGroup.find(selector);
+                label = this.$bmdFormGroup.find(selector);
               }
 
               if (label !== undefined && label.length > 0) {
@@ -5239,7 +5239,7 @@
           for (var inputSize in FormControlSizeMarkers) {
             if (this.$element.hasClass(inputSize)) {
               //this.$element.removeClass(inputSize)
-              this.$mdbFormGroup.addClass(FormControlSizeMarkers[inputSize]);
+              this.$bmdFormGroup.addClass(FormControlSizeMarkers[inputSize]);
             }
           }
         }
@@ -5366,9 +5366,9 @@
 
         // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
         //  - a function(thisComponent); or
-        //  - a string selector used like $mdbFormGroup.find(selector)
+        //  - a string selector used like $bmdFormGroup.find(selector)
         //
-        // Note this only runs if $mdbFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
+        // Note this only runs if $bmdFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
         //
         //selectors: [
         //  `.form-control-label`, // in the case of horizontal or inline forms, this will be marked
@@ -5469,8 +5469,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'checkbox';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
@@ -5570,12 +5570,12 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'checkboxInline';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
-      mdbFormGroup: {
+      bmdFormGroup: {
         create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
         required: false
       }
@@ -5668,8 +5668,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'collapseInline';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Selector = {
@@ -5703,7 +5703,7 @@
 
         var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(CollapseInline).call(this, $element, $.extend(true, {}, Default, config)));
 
-        _this.$mdbFormGroup = _this.findMdbFormGroup(true);
+        _this.$bmdFormGroup = _this.findMdbFormGroup(true);
 
         var collapseSelector = $element.data('target');
         _this.$collapse = $(collapseSelector);
@@ -5712,7 +5712,7 @@
         Util.assert(_this.$collapse, !_this.$collapse.hasClass(ClassName.COLLAPSE), Util.describe(_this.$collapse) + ' is expected to have the \'' + ClassName.COLLAPSE + '\' class.  It is being targeted by ' + Util.describe($element));
 
         // find the first input for focusing
-        var $inputs = _this.$mdbFormGroup.find(Selector.ANY_INPUT);
+        var $inputs = _this.$bmdFormGroup.find(Selector.ANY_INPUT);
         if ($inputs.length > 0) {
           _this.$input = $inputs.first();
         }
@@ -5740,7 +5740,7 @@
         key: 'dispose',
         value: function dispose() {
           babelHelpers.get(Object.getPrototypeOf(CollapseInline.prototype), 'dispose', this).call(this, DATA_KEY);
-          this.$mdbFormGroup = null;
+          this.$bmdFormGroup = null;
           this.$collapse = null;
           this.$input = null;
         }
@@ -5793,8 +5793,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'file';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {};
@@ -5824,7 +5824,7 @@
         //{invalidComponentMatches: [Checkbox, Radio, Text, Textarea, Select, Switch]},
         Default, config)));
 
-        _this.$mdbFormGroup.addClass(ClassName.IS_FILE);
+        _this.$bmdFormGroup.addClass(ClassName.IS_FILE);
         return _this;
       }
 
@@ -5857,7 +5857,7 @@
         value: function addFocusListener() {
           var _this2 = this;
 
-          this.$mdbFormGroup.on('focus', function () {
+          this.$bmdFormGroup.on('focus', function () {
             _this2.addFormGroupFocus();
           }).on('blur', function () {
             _this2.removeFormGroupFocus();
@@ -5880,7 +5880,7 @@
             } else {
               _this3.removeIsFilled();
             }
-            _this3.$mdbFormGroup.find(Selector.FILENAMES).val(value);
+            _this3.$bmdFormGroup.find(Selector.FILENAMES).val(value);
           });
         }
 
@@ -5945,8 +5945,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'radio';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
@@ -6047,12 +6047,12 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'radioInline';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
-      mdbFormGroup: {
+      bmdFormGroup: {
         create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
         required: false
       }
@@ -6173,8 +6173,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'select';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
@@ -6274,8 +6274,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'switch';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
@@ -6355,8 +6355,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'text';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {};
@@ -6449,8 +6449,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'textarea';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {};
@@ -6692,8 +6692,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'drawer';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Keycodes = {
@@ -6880,8 +6880,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'ripples';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var ClassName = {
@@ -7229,8 +7229,8 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'autofill';
-    var DATA_KEY = 'mdb.' + NAME;
-    var JQUERY_NAME = 'mdb' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
+    var DATA_KEY = 'bmd.' + NAME;
+    var JQUERY_NAME = 'bmd' + (NAME.charAt(0).toUpperCase() + NAME.slice(1));
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {};
@@ -7360,7 +7360,7 @@
      * ------------------------------------------------------------------------
      */
     var NAME = 'bootstrapMaterialDesign';
-    var DATA_KEY = 'mdb.' + NAME;
+    var DATA_KEY = 'bmd.' + NAME;
     var JQUERY_NAME = NAME; // retain this full name since it is long enough not to conflict
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
@@ -7470,9 +7470,9 @@
                 // mix in global options
                 componentConfig = $.extend(true, {}, _this.config.global, componentConfig);
 
-                // create the jquery fn name e.g. 'mdbText' for 'text'
+                // create the jquery fn name e.g. 'bmdText' for 'text'
                 var componentName = '' + (component.charAt(0).toUpperCase() + component.slice(1));
-                var jqueryFn = 'mdb' + componentName;
+                var jqueryFn = 'bmd' + componentName;
 
                 try {
                   // safely instantiate component on selector elements with config, report errors and move on.

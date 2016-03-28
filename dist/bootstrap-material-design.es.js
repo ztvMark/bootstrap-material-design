@@ -158,20 +158,20 @@ const Base = (($) => {
 
     addFormGroupFocus() {
       if (!this.$element.prop('disabled')) {
-        this.$mdbFormGroup.addClass(ClassName.IS_FOCUSED)
+        this.$bmdFormGroup.addClass(ClassName.IS_FOCUSED)
       }
     }
 
     removeFormGroupFocus() {
-      this.$mdbFormGroup.removeClass(ClassName.IS_FOCUSED)
+      this.$bmdFormGroup.removeClass(ClassName.IS_FOCUSED)
     }
 
     removeIsFilled() {
-      this.$mdbFormGroup.removeClass(ClassName.IS_FILLED)
+      this.$bmdFormGroup.removeClass(ClassName.IS_FILLED)
     }
 
     addIsFilled() {
-      this.$mdbFormGroup.addClass(ClassName.IS_FILLED)
+      this.$bmdFormGroup.addClass(ClassName.IS_FILLED)
     }
 
     // Find bmd-form-group
@@ -220,7 +220,7 @@ const BaseInput = (($) => {
     formGroup: {
       required: false
     },
-    mdbFormGroup: {
+    bmdFormGroup: {
       template: `<span class='${ClassName.BMD_FORM_GROUP}'></span>`,
       create: true, // create a wrapper if form-group not found
       required: true // not recommended to turn this off, only used for inline components
@@ -230,9 +230,9 @@ const BaseInput = (($) => {
 
       // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
       //  - a function(thisComponent); or
-      //  - a string selector used like $mdbFormGroup.find(selector)
+      //  - a string selector used like $bmdFormGroup.find(selector)
       //
-      // Note this only runs if $mdbFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
+      // Note this only runs if $bmdFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
       //
       selectors: [
         `.form-control-label`, // in the case of horizontal or inline forms, this will be marked
@@ -282,10 +282,10 @@ const BaseInput = (($) => {
       // Will add bmd-form-group to form-group or create an bmd-form-group
       //  Performance Note: for those forms that are really performance driven, create the markup with the .bmd-form-group to avoid
       //    rendering changes once added.
-      this.$mdbFormGroup = this.resolveMdbFormGroup()
+      this.$bmdFormGroup = this.resolveMdbFormGroup()
 
-      // Resolve and mark the mdbLabel if necessary as defined by the config
-      this.$mdbLabel = this.resolveMdbLabel()
+      // Resolve and mark the bmdLabel if necessary as defined by the config
+      this.$bmdLabel = this.resolveMdbLabel()
 
       // Signal to the bmd-form-group that a form-control-* variation is being used
       this.resolveMdbFormGroupSizing()
@@ -296,7 +296,7 @@ const BaseInput = (($) => {
 
     dispose(dataKey) {
       super.dispose(dataKey)
-      this.$mdbFormGroup = null
+      this.$bmdFormGroup = null
       this.$formGroup = null
     }
 
@@ -352,11 +352,11 @@ const BaseInput = (($) => {
     }
 
     addHasDanger() {
-      this.$mdbFormGroup.addClass(ClassName.HAS_DANGER)
+      this.$bmdFormGroup.addClass(ClassName.HAS_DANGER)
     }
 
     removeHasDanger() {
-      this.$mdbFormGroup.removeClass(ClassName.HAS_DANGER)
+      this.$bmdFormGroup.removeClass(ClassName.HAS_DANGER)
     }
 
     isEmpty() {
@@ -367,20 +367,20 @@ const BaseInput = (($) => {
     resolveMdbFormGroup() {
       let mfg = this.findMdbFormGroup(false)
       if (mfg === undefined || mfg.length === 0) {
-        if (this.config.mdbFormGroup.create && (this.$formGroup === undefined || this.$formGroup.length === 0)) {
+        if (this.config.bmdFormGroup.create && (this.$formGroup === undefined || this.$formGroup.length === 0)) {
           // If a form-group doesn't exist (not recommended), take a guess and wrap the element (assuming no label).
           //  note: it's possible to make this smarter, but I need to see valid cases before adding any complexity.
-          this.outerElement().wrap(this.config.mdbFormGroup.template)
+          this.outerElement().wrap(this.config.bmdFormGroup.template)
         } else {
           // a form-group does exist, add our marker class to it
           this.$formGroup.addClass(ClassName.BMD_FORM_GROUP)
 
           // OLD: may want to implement this after all, see how the styling turns out, but using an existing form-group is less manipulation of the dom and therefore preferable
           // A form-group does exist, so add an bmd-form-group wrapping it's internal contents
-          //fg.wrapInner(this.config.mdbFormGroup.template)
+          //fg.wrapInner(this.config.bmdFormGroup.template)
         }
 
-        mfg = this.findMdbFormGroup(this.config.mdbFormGroup.required)
+        mfg = this.findMdbFormGroup(this.config.bmdFormGroup.required)
       }
 
       return mfg
@@ -395,7 +395,7 @@ const BaseInput = (($) => {
     // Will add bmd-label to bmd-form-group if not already specified
     resolveMdbLabel() {
 
-      let label = this.$mdbFormGroup.find(Selector.BMD_LABEL_WILDCARD)
+      let label = this.$bmdFormGroup.find(Selector.BMD_LABEL_WILDCARD)
       if (label === undefined || label.length === 0) {
         // we need to find it based on the configured selectors
         label = this.findMdbLabel(this.config.label.required)
@@ -420,7 +420,7 @@ const BaseInput = (($) => {
         if ($.isFunction(selector)) {
           label = selector(this)
         } else {
-          label = this.$mdbFormGroup.find(selector)
+          label = this.$bmdFormGroup.find(selector)
         }
 
         if (label !== undefined && label.length > 0) {
@@ -454,7 +454,7 @@ const BaseInput = (($) => {
       for (let inputSize in FormControlSizeMarkers) {
         if (this.$element.hasClass(inputSize)) {
           //this.$element.removeClass(inputSize)
-          this.$mdbFormGroup.addClass(FormControlSizeMarkers[inputSize])
+          this.$bmdFormGroup.addClass(FormControlSizeMarkers[inputSize])
         }
       }
     }
@@ -513,9 +513,9 @@ const BaseSelection = (($) => {
 
       // Prioritized find order for resolving the label to be used as an bmd-label if not specified in the markup
       //  - a function(thisComponent); or
-      //  - a string selector used like $mdbFormGroup.find(selector)
+      //  - a string selector used like $bmdFormGroup.find(selector)
       //
-      // Note this only runs if $mdbFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
+      // Note this only runs if $bmdFormGroup.find(Selector.BMD_LABEL_WILDCARD) fails to find a label (as authored in the markup)
       //
       //selectors: [
       //  `.form-control-label`, // in the case of horizontal or inline forms, this will be marked
@@ -597,8 +597,8 @@ const Checkbox = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'checkbox'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
@@ -682,12 +682,12 @@ const CheckboxInline = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'checkboxInline'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
-    mdbFormGroup: {
+    bmdFormGroup: {
       create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
       required: false
     }
@@ -768,8 +768,8 @@ const CollapseInline = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'collapseInline'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Selector = {
@@ -796,7 +796,7 @@ const CollapseInline = (($) => {
     //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="collapse" data-target="#search-field" aria-expanded="false" aria-controls="search-field">
     constructor($element, config) {
       super($element, $.extend(true, {}, Default, config))
-      this.$mdbFormGroup = this.findMdbFormGroup(true)
+      this.$bmdFormGroup = this.findMdbFormGroup(true)
 
       let collapseSelector = $element.data('target')
       this.$collapse = $(collapseSelector)
@@ -805,7 +805,7 @@ const CollapseInline = (($) => {
       Util.assert(this.$collapse, !this.$collapse.hasClass(ClassName.COLLAPSE), `${Util.describe(this.$collapse)} is expected to have the '${ClassName.COLLAPSE}' class.  It is being targeted by ${Util.describe($element)}`)
 
       // find the first input for focusing
-      let $inputs = this.$mdbFormGroup.find(Selector.ANY_INPUT)
+      let $inputs = this.$bmdFormGroup.find(Selector.ANY_INPUT)
       if ($inputs.length > 0) {
         this.$input = $inputs.first()
       }
@@ -830,7 +830,7 @@ const CollapseInline = (($) => {
 
     dispose() {
       super.dispose(DATA_KEY)
-      this.$mdbFormGroup = null
+      this.$bmdFormGroup = null
       this.$collapse = null
       this.$input = null
     }
@@ -877,8 +877,8 @@ const File = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'file'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {}
@@ -904,7 +904,7 @@ const File = (($) => {
         //{invalidComponentMatches: [Checkbox, Radio, Text, Textarea, Select, Switch]},
         Default, config))
 
-      this.$mdbFormGroup.addClass(ClassName.IS_FILE)
+      this.$bmdFormGroup.addClass(ClassName.IS_FILE)
     }
 
     dispose() {
@@ -938,7 +938,7 @@ const File = (($) => {
     }
 
     addFocusListener() {
-      this.$mdbFormGroup
+      this.$bmdFormGroup
         .on('focus', () => {
           this.addFormGroupFocus()
         })
@@ -960,7 +960,7 @@ const File = (($) => {
         } else {
           this.removeIsFilled()
         }
-        this.$mdbFormGroup.find(Selector.FILENAMES).val(value)
+        this.$bmdFormGroup.find(Selector.FILENAMES).val(value)
       })
     }
 
@@ -1006,8 +1006,8 @@ const Radio = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'radio'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
@@ -1093,12 +1093,12 @@ const RadioInline = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'radioInline'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
-    mdbFormGroup: {
+    bmdFormGroup: {
       create: false, // no bmd-form-group creation if form-group not present. It messes with the layout.
       required: false
     }
@@ -1200,8 +1200,8 @@ const Select = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'select'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
@@ -1284,8 +1284,8 @@ const Switch = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'switch'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {
@@ -1353,8 +1353,8 @@ const Text = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'text'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {}
@@ -1432,8 +1432,8 @@ const Textarea = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'textarea'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {}
@@ -1629,8 +1629,8 @@ const Drawer = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'drawer'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Keycodes = {
@@ -1796,8 +1796,8 @@ const Ripples = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'ripples'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const ClassName = {
@@ -2104,8 +2104,8 @@ const Autofill = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'autofill'
-  const DATA_KEY = `mdb.${NAME}`
-  const JQUERY_NAME = `mdb${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
+  const DATA_KEY = `bmd.${NAME}`
+  const JQUERY_NAME = `bmd${NAME.charAt(0).toUpperCase() + NAME.slice(1)}`
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
   const Default = {}
@@ -2216,7 +2216,7 @@ const BootstrapMaterialDesign = (($) => {
    * ------------------------------------------------------------------------
    */
   const NAME = 'bootstrapMaterialDesign'
-  const DATA_KEY = `mdb.${NAME}`
+  const DATA_KEY = `bmd.${NAME}`
   const JQUERY_NAME = NAME // retain this full name since it is long enough not to conflict
   const JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME]
 
@@ -2333,9 +2333,9 @@ const BootstrapMaterialDesign = (($) => {
           // mix in global options
           componentConfig = $.extend(true, {}, this.config.global, componentConfig)
 
-          // create the jquery fn name e.g. 'mdbText' for 'text'
+          // create the jquery fn name e.g. 'bmdText' for 'text'
           let componentName = `${component.charAt(0).toUpperCase() + component.slice(1)}`
-          let jqueryFn = `mdb${componentName}`
+          let jqueryFn = `bmd${componentName}`
 
           try {
             // safely instantiate component on selector elements with config, report errors and move on.
