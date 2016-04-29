@@ -1,7 +1,7 @@
 /*!
-  * Bootstrap Material Design v4.0.1 (https://github.com/FezVrasta/bootstrap-material-design)
-  * Copyright 2014-2016 Federico Zivolo
-  * Licensed under MIT (https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE)
+  * bootstrap-material-design  v4.0.1 (https://github.com/FezVrasta/bootstrap-material-design)
+  * Copyright 2016 Federico Zivolo
+  * Licensed under MIT
   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('babel-polyfill/dist/polyfill'), require('bootstrap')) :
@@ -225,7 +225,7 @@
       babelHelpers.createClass(Base, [{
         key: 'dispose',
         value: function dispose(dataKey) {
-          $.removeData(this.$element, dataKey);
+          this.$element.data(dataKey, null);
           this.$element = null;
           this.config = null;
         }
@@ -294,7 +294,8 @@
       BMD_LABEL_FLOATING: 'bmd-label-floating',
       HAS_DANGER: 'has-danger',
       IS_FILLED: 'is-filled',
-      IS_FOCUSED: 'is-focused'
+      IS_FOCUSED: 'is-focused',
+      INPUT_GROUP: 'input-group'
     };
 
     var Selector = {
@@ -479,7 +480,13 @@
             if (this.config.bmdFormGroup.create && (this.$formGroup === undefined || this.$formGroup.length === 0)) {
               // If a form-group doesn't exist (not recommended), take a guess and wrap the element (assuming no label).
               //  note: it's possible to make this smarter, but I need to see valid cases before adding any complexity.
-              this.outerElement().wrap(this.config.bmdFormGroup.template);
+
+              // this may be an input-group, wrap that instead
+              if (this.outerElement().parent().hasClass(ClassName.INPUT_GROUP)) {
+                this.outerElement().parent().wrap(this.config.bmdFormGroup.template);
+              } else {
+                this.outerElement().wrap(this.config.bmdFormGroup.template);
+              }
             } else {
               // a form-group does exist, add our marker class to it
               this.$formGroup.addClass(ClassName.BMD_FORM_GROUP);
@@ -2299,7 +2306,7 @@
       babelHelpers.createClass(Ripples, [{
         key: 'dispose',
         value: function dispose() {
-          $.removeData(this.$element, DATA_KEY);
+          this.$element.data(DATA_KEY, null);
           this.$element = null;
           this.$container = null;
           this.$decorator = null;
@@ -2784,7 +2791,7 @@
       },
       text: {
         // omit inputs we have specialized components to handle - we need to match text, email, etc.  The easiest way to do this appears to be just omit the ones we don't want to match and let the rest fall through to this.
-        selector: ['input[type!=\'hidden\'][type!=\'checkbox\'][type!=\'radio\'][type!=\'file\'][type!=\'button\'][type!=\'submit\'][type!=\'reset\']']
+        selector: ['input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=file]):not([type=button]):not([type=submit]):not([type=reset])']
       },
       textarea: {
         selector: ['textarea']
@@ -2845,9 +2852,9 @@
 
                   // add to arrive if present and enabled
                   if (document.arrive && _this.config.arrive) {
-                    $document.arrive(selector, function (element) {
+                    $document.arrive(selector, function () {
                       // eslint-disable-line no-loop-func
-                      $(element)[jqueryFn](componentConfig);
+                      $(this)[jqueryFn](componentConfig);
                     });
                   }
                 } catch (e) {
@@ -2881,7 +2888,7 @@
       babelHelpers.createClass(BootstrapMaterialDesign, [{
         key: 'dispose',
         value: function dispose() {
-          $.removeData(this.$element, DATA_KEY);
+          this.$element.data(DATA_KEY, null);
           this.$element = null;
           this.config = null;
         }
