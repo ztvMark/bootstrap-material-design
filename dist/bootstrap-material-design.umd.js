@@ -1,13 +1,13 @@
 /*!
-  * bootstrap-material-design  v4.0.1 (https://github.com/FezVrasta/bootstrap-material-design)
+  * bootstrap-material-design  v4.0.2 (https://github.com/FezVrasta/bootstrap-material-design)
   * Copyright 2016 Federico Zivolo and contributors
   * Licensed under MIT
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('bootstrap')) :
-  typeof define === 'function' && define.amd ? define(['bootstrap'], factory) :
-  (factory(global.bootstrap));
-}(this, function (bootstrap) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('babel-polyfill'), require('bootstrap/dist/js/bootstrap')) :
+  typeof define === 'function' && define.amd ? define(['babel-polyfill', 'bootstrap/dist/js/bootstrap'], factory) :
+  (factory(global.babelPolyfill,global.bootstrap_dist_js_bootstrap));
+}(this, function (babelPolyfill,bootstrap_dist_js_bootstrap) { 'use strict';
 
   var Util = function () {
 
@@ -70,12 +70,12 @@
           return true;
         } else if (typeof event.which === 'number' && event.which > 0) {
           return !event.ctrlKey && !event.metaKey && !event.altKey && event.which !== 8 // backspace
-           && event.which !== 9 // tab
-           && event.which !== 13 // enter
-           && event.which !== 16 // shift
-           && event.which !== 17 // ctrl
-           && event.which !== 20 // caps lock
-           && event.which !== 27 // escape
+          && event.which !== 9 // tab
+          && event.which !== 13 // enter
+          && event.which !== 16 // shift
+          && event.which !== 17 // ctrl
+          && event.which !== 20 // caps lock
+          && event.which !== 27 // escape
           ;
         }
         return false;
@@ -204,7 +204,6 @@
        * @param config
        * @param properties - anything that needs to be set as this[key] = value.  Works around the need to call `super` before using `this`
        */
-
       function Base($element, config) {
         var properties = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
         classCallCheck(this, Base);
@@ -343,21 +342,17 @@
     var BaseInput = function (_Base) {
       inherits(BaseInput, _Base);
 
-
       /**
        *
        * @param element
        * @param config
        * @param properties - anything that needs to be set as this[key] = value.  Works around the need to call `super` before using `this`
        */
-
       function BaseInput($element, config) {
         var properties = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
         classCallCheck(this, BaseInput);
 
-
         // Enforce no overlap between components to prevent side effects
-
         var _this = possibleConstructorReturn(this, Object.getPrototypeOf(BaseInput).call(this, $element, $.extend(true, {}, Default, config), properties));
 
         _this._rejectInvalidComponentMatches();
@@ -525,9 +520,9 @@
             if (label === undefined || label.length === 0) {
               // no label found, and finder did not require one
             } else {
-                // a candidate label was found, add the configured default class name
-                label.addClass(this.config.label.className);
-              }
+              // a candidate label was found, add the configured default class name
+              label.addClass(this.config.label.className);
+            }
           }
 
           return label;
@@ -1065,10 +1060,8 @@
     var CollapseInline = function (_Base) {
       inherits(CollapseInline, _Base);
 
-
       // $element is expected to be the trigger
       //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="collapse" data-target="#search-field" aria-expanded="false" aria-controls="search-field">
-
       function CollapseInline($element, config) {
         classCallCheck(this, CollapseInline);
 
@@ -1370,6 +1363,7 @@
         //  this.$element.after(this.config.template)
         //}
 
+
         // ------------------------------------------------------------------------
         // private
 
@@ -1519,9 +1513,7 @@
       function BaseFormControl($element, config) {
         classCallCheck(this, BaseFormControl);
 
-
         // Initially mark as empty
-
         var _this = possibleConstructorReturn(this, Object.getPrototypeOf(BaseFormControl).call(this, $element, $.extend(true, Default, config)));
 
         if (_this.isEmpty()) {
@@ -1564,9 +1556,7 @@
       function Select($element, config) {
         classCallCheck(this, Select);
 
-
         // floating labels will cover the options, so trigger them to be above (if used)
-
         var _this = possibleConstructorReturn(this, Object.getPrototypeOf(Select).call(this, $element, $.extend(true,
         //{invalidComponentMatches: [Checkbox, File, Radio, Switch, Text, Textarea]},
         Default, config)));
@@ -2094,10 +2084,8 @@
     var Drawer = function (_BaseLayout) {
       inherits(Drawer, _BaseLayout);
 
-
       // $element is expected to be the trigger
       //  i.e. <button class="btn bmd-btn-icon" for="search" data-toggle="drawer" data-target="#my-side-nav-drawer" aria-expanded="false" aria-controls="my-side-nav-drawer">
-
       function Drawer($element, config) {
         classCallCheck(this, Drawer);
 
@@ -2719,7 +2707,7 @@
 
   /**
    * $.bootstrapMaterialDesign(config) is a macro class to configure the components generally
-   *  used in Material Design for Bootstrap.  You may pass overrides to the configurations
+   *  used in Bootstrap Material Design.  You may pass overrides to the configurations
    *  which will be passed into each component, or you may omit use of this class and
    *  configure each component separately.
    */

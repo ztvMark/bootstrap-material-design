@@ -149,8 +149,12 @@
   }
 
   // Align icons inside buttons with text
-  i.material-icons {
-    vertical-align: middle;
+  .material-icons {
+    position: relative;
+    top: .25em;
+    margin-top: -1em;
+    margin-bottom: -1em;
+    font-size: 1.5em;
   }
 
   // Size variations
@@ -215,6 +219,11 @@
   .btn,
   .btn:active,
   .btn-group {
+    margin: 0;
+  }
+
+  // remove margin from nested btn-group(s) to properly align them with the outer buttons
+  > .btn-group {
     margin: 0;
   }
 }
