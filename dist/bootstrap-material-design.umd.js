@@ -4,10 +4,10 @@
   * Licensed under MIT
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('babel-polyfill'), require('bootstrap/dist/js/bootstrap')) :
-  typeof define === 'function' && define.amd ? define(['babel-polyfill', 'bootstrap/dist/js/bootstrap'], factory) :
-  (factory(global.babelPolyfill,global.bootstrap_dist_js_bootstrap));
-}(this, function (babelPolyfill,bootstrap_dist_js_bootstrap) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('babel-polyfill'), require('bootstrap/js/src/alert'), require('bootstrap/js/src/button'), require('bootstrap/js/src/carousel'), require('bootstrap/js/src/collapse'), require('bootstrap/js/src/dropdown'), require('bootstrap/js/src/modal'), require('bootstrap/js/src/popover'), require('bootstrap/js/src/scrollspy'), require('bootstrap/js/src/tab'), require('bootstrap/js/src/tooltip'), require('bootstrap/js/src/util')) :
+  typeof define === 'function' && define.amd ? define(['babel-polyfill', 'bootstrap/js/src/alert', 'bootstrap/js/src/button', 'bootstrap/js/src/carousel', 'bootstrap/js/src/collapse', 'bootstrap/js/src/dropdown', 'bootstrap/js/src/modal', 'bootstrap/js/src/popover', 'bootstrap/js/src/scrollspy', 'bootstrap/js/src/tab', 'bootstrap/js/src/tooltip', 'bootstrap/js/src/util'], factory) :
+  (factory(global.babelPolyfill,global.bootstrap_js_src_alert,global.bootstrap_js_src_button,global.bootstrap_js_src_carousel,global.bootstrap_js_src_collapse,global.bootstrap_js_src_dropdown,global.bootstrap_js_src_modal,global.bootstrap_js_src_popover,global.bootstrap_js_src_scrollspy,global.bootstrap_js_src_tab,global.bootstrap_js_src_tooltip,global.bootstrap_js_src_util));
+}(this, function (babelPolyfill,bootstrap_js_src_alert,bootstrap_js_src_button,bootstrap_js_src_carousel,bootstrap_js_src_collapse,bootstrap_js_src_dropdown,bootstrap_js_src_modal,bootstrap_js_src_popover,bootstrap_js_src_scrollspy,bootstrap_js_src_tab,bootstrap_js_src_tooltip,bootstrap_js_src_util) { 'use strict';
 
   var Util = function () {
 
@@ -774,7 +774,13 @@
       createClass(BaseSelection, [{
         key: 'decorateMarkup',
         value: function decorateMarkup() {
-          this.$element.after(this.config.template);
+          var $decorator = $(this.config.template);
+          this.$element.after($decorator);
+
+          // initialize ripples after decorator has been inserted into DOM
+          if (this.config.ripples !== false) {
+            $decorator.bmdRipples();
+          }
         }
 
         // Demarcation element (e.g. first child of a form-group)
@@ -1314,7 +1320,7 @@
     var JQUERY_NO_CONFLICT = $.fn[JQUERY_NAME];
 
     var Default = {
-      template: '<span class=\'bmd-radio-outer-circle\'></span><span class=\'bmd-radio-inner-circle\'></span>'
+      template: '<span class=\'bmd-radio\'></span>'
     };
 
     /**
@@ -2282,7 +2288,7 @@
 
         this.$element = $element;
 
-        //console.log(`Adding ripples to ${Util.describe(this.$element)}`)  // eslint-disable-line no-console
+        // console.log(`Adding ripples to ${Util.describe(this.$element)}`)  // eslint-disable-line no-console
         this.config = $.extend(true, {}, Default, config);
 
         // attach initial listener
